@@ -1,8 +1,11 @@
+from django.contrib.contenttypes.models import ContentType
 from django.core.paginator import Paginator
 from django.db.models import Q
 from django.http import HttpResponse
 from django.shortcuts import render
 from django.views import generic as django_generic
+
+from tags.models import Tag, TaggedItem
 from .models import Product, Collection
 
 
@@ -30,6 +33,18 @@ def product_list(request):
     if search_query:
         products = products.filter(Q(title__icontains=search_query))
 
+    tags = Tag.objects.all()
+    selected_tag = request.GET.get('tag_id')
+
+    if selected_tag:
+        content_type = ContentType.objects.get_for_model(Product)
+        tagged_item_ids = TaggedItem.objects.filter(tag_id=selected_tag, content_type=content_type).values_list(
+            'object_id', flat=True)
+        products = products.filter(id__in=tagged_item_ids)
+
+
+
+
     paginator = Paginator(products, 10)
     page_number = request.GET.get('page')
     page = paginator.get_page(page_number)
@@ -39,7 +54,9 @@ def product_list(request):
     context = {
         'page': page,
         'collections': collections,
-        'selected_collection': collection_title
+        'tags': tags,
+        'selected_collection': collection_title,
+        'selected_tag': selected_tag,
     }
     return render(request, 'store/product_list.html', context)
 
