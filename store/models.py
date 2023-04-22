@@ -11,6 +11,7 @@ class Collection(models.Model):
         return self.title
 
     class Meta:
+
         ordering = ['title']
 
 
@@ -22,7 +23,7 @@ class Product(models.Model):
     inventory = models.IntegerField(validators=[MinValueValidator(0)])
     last_update = models.DateTimeField(auto_now=True)
     collection = models.ForeignKey(Collection, on_delete=models.PROTECT)
-    image = models.ImageField(upload_to='media/', default='default_product.jpg')
+    image = models.ImageField(upload_to='media/', default='default_product.png')
 
     def __str__(self) -> str:
         return self.title

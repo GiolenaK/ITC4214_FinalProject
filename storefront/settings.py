@@ -29,7 +29,6 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'playground',
     'tags',
     'store',
     'users.apps.UsersConfig',
