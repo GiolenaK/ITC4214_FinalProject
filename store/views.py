@@ -31,13 +31,13 @@ def product_list(request):
         products = products.filter(Q(title__icontains=search_query))
 
     paginator = Paginator(products, 10)
-    page = request.GET.get('page')
-    products = paginator.get_page(page)
+    page_number = request.GET.get('page')
+    page = paginator.get_page(page_number)
 
     collections = Collection.objects.all()
 
     context = {
-        'products': products,
+        'page': page,
         'collections': collections,
         'selected_collection': collection_title
     }
@@ -54,6 +54,7 @@ class ProductListView(django_generic.ListView):
         if collection_id:
             queryset = queryset.filter(collection_id=collection_id)
         return queryset
+
 
 class CollectionListView(django_generic.ListView):
     model = Collection
