@@ -1,0 +1,66 @@
+{% extends 'store/base.html' %}
+
+{% block content %}
+<div class="col-md-3 d-flex flex-column align-items-end">
+    <div class="search-container">
+        <form method="GET" action="" class="form-inline">
+            <div class="input-group">
+                <input type="text" class="form-control" name="search" placeholder="Search products...">
+                <div class="input-group-append">
+                    <button type="submit" class="btn btn-primary">Search</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="container-fluid mt-5">
+    <div class="row">
+        <div class="col-md-3">
+            <h3>Filter by Collection</h3>
+            {% for collection in collections %}
+                <div>
+                    <a href="?collection={{ collection.title }}">{{ collection.title }}</a>
+                </div>
+            {% endfor %}
+            <div>
+                <a href="?">All</a>
+            </div>
+            <div class="pagination pagination mt-4">
+                <span class="step-links">
+                    {% if page.has_previous %}
+                        <a href="?page=1">&laquo; first</a>
+                        <a href="?page={{ page.previous_page_number }}">previous</a>
+                    {% endif %}
+
+                    <span class="current-page">
+                        Page {{ page.number }} of {{ page.paginator.num_pages }}
+                    </span>
+
+                    {% if page.has_next %}
+                        <a href="?page={{ page.next_page_number }}">next</a>
+                        <a href="?page={{ page.paginator.num_pages }}">last &raquo;</a>
+                    {% endif %}
+                </span>
+            </div>
+        </div>
+
+        <div class="col-md-9">
+            <div class="row">
+                {% for product in page %}
+                    <div class="col-md-4 mb-4">
+                        <div class="card h-100">
+                            <img src="{{ product.image.url }}" alt="{{ product.title }}"
+                                 class="card-img-top product-img">
+                            <div class="card-body card-content">
+                                <h4 class="card-title">{{ product.title }}</h4>
+                                <p class="card-text">${{ product.price }}</p>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
