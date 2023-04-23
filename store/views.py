@@ -2,7 +2,7 @@ from django.contrib.contenttypes.models import ContentType
 from django.core.paginator import Paginator
 from django.db.models import Q
 from django.http import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.views import generic as django_generic
 
 from tags.models import Tag, TaggedItem
@@ -43,8 +43,6 @@ def product_list(request):
         products = products.filter(id__in=tagged_item_ids)
 
 
-
-
     paginator = Paginator(products, 10)
     page_number = request.GET.get('page')
     page = paginator.get_page(page_number)
@@ -76,4 +74,3 @@ class ProductListView(django_generic.ListView):
 class CollectionListView(django_generic.ListView):
     model = Collection
     template_name = 'store/collection_list.html'
-

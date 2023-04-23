@@ -1,7 +1,7 @@
 {% extends 'store/base.html' %}
-
+{#Search bar on top#}
 {% block content %}
-    <div class="col-md-3 d-flex flex-column align-items-end">
+    <div class="col-lg-3 col-md-3 col-12">
         <div class="search-container">
             <form method="GET" action="" class="form-inline">
                 <div class="input-group">
@@ -13,34 +13,36 @@
             </form>
         </div>
     </div>
-
+    {#Display collection filters#}
     <div class="container-fluid mt-5">
         <div class="row">
-            <div class="col-md-3">
+            <div class="col-lg-3 col-md-3 col-4">
                 <h3>Filter by Collection</h3>
+                {#For loop to display all the available collections#}
                 {% for collection in collections %}
                     <div>
                         <a href="?collection={{ collection.title }}">{{ collection.title }}</a>
                     </div>
                 {% endfor %}
                 <div>
-                <div>
+                    <div>
                         <a href="?">All</a>
                     </div>
+
+                    {#Display tag filters#}
                     <h3 class="mt-4">Filter by Tag</h3>
+                    {#For loop to display all the available tags#}
                     {% for tag in tags %}
                         <div>
                             <a href="?tag_id={{ tag.id }}">{{ tag.label }}</a>
                         </div>
                     {% endfor %}
                 </div>
-
-
-
-                    <div class="pagination pagination mt-4">
+                {#Display pagination on bottom #}
+                <div class="pagination pagination mt-4">
                 <span class="step-links">
                     {% if page.has_previous %}
-                        <a href="?page=1">&laquo; first</a>
+                        <a href="?page=1">&laquo; first</a>    {#Link takes user to first page, &laquo = << #}
                         <a href="?page={{ page.previous_page_number }}">previous</a>
                     {% endif %}
 
@@ -50,28 +52,30 @@
 
                     {% if page.has_next %}
                         <a href="?page={{ page.next_page_number }}">next</a>
-                        <a href="?page={{ page.paginator.num_pages }}">last &raquo;</a>
+                        <a href="?page={{ page.paginator.num_pages }}">last &raquo;</a>  {#Link takes user to first page, &raquo = >> #}
                     {% endif %}
                 </span>
-                    </div>
                 </div>
-
-                <div class="col-md-9">
-                    <div class="row">
-                        {% for product in page %}
-                            <div class="col-md-4 mb-4">
-                                <div class="card h-100">
-                                    <img src="{{ product.image.url }}" alt="{{ product.title }}"
-                                         class="card-img-top product-img">
-                                    <div class="card-body card-content">
-                                        <h4 class="card-title">{{ product.title }}</h4>
-                                        <p class="card-text">${{ product.price }}</p>
-                                    </div>
+            </div>
+            {#Display items in a card-like style, 3 per row on large screen and 1 on mobile, same size#}
+            <div class="col-lg-9 col-md-9 col-8">
+                <div class="row">
+                    {#Display all items#}
+                    {% for product in page %}
+                        <div class="col-lg-4 col-md-6 col-12 mb-6">
+                            <div class="card h-100">
+                                {#For each item, display the image and the image title#}
+                                <img src="{{ product.image.url }}" alt="{{ product.title }}"
+                                     class="card-img-top product-img">
+                                <div class="card-body card-content">
+                                    <h4 class="card-title">{{ product.title }}</h4>
+                                    <p class="card-text">${{ product.price }}</p>
                                 </div>
                             </div>
-                        {% endfor %}
-                    </div>
+                        </div>
+                    {% endfor %}
                 </div>
             </div>
         </div>
+    </div>
 {% endblock %}
