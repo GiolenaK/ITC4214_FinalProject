@@ -27,16 +27,12 @@ class ProductAdmin(admin.ModelAdmin):
         'slug': ['title']
     }
     actions = ['clear_inventory']
-    list_display = ['title', 'price', 'inventory_status', 'collection']
-    list_editable = ['price']
+    list_display = ['title', 'price', 'inventory', 'collection']
+    list_editable = ['price', 'inventory']
     list_per_page = 10
     list_filter = ['collection', 'last_update', InventoryFilter]
 
-    @admin.display(ordering='inventory')
-    def inventory_status(self, product):
-        if product.inventory < 15:
-            return 'Low'
-        return 'OK'
+
 
     @admin.action(description='Clear inventory')
     def clear_inventory(self, request, queryset):
@@ -64,7 +60,7 @@ class CollectionAdmin(admin.ModelAdmin):
 
         return format_html('<a href="{}">{}</a>', url, collection.products_count)
 
-    def get_queryset(selfself, request: HttpRequest) -> QuerySet:
+    def get_queryset(self, request: HttpRequest) -> QuerySet:
         return super().get_queryset(request).annotate(
             products_count=Count('product')
 

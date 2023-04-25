@@ -8,9 +8,11 @@ from users.models import Profile
 class UserRegisterForm(UserCreationForm):
     email = forms.EmailField()
 
+
+#Model that we want the above form to interact with
     class Meta:
-        model = User
-        fields = ['username', 'email', 'password1', 'password2']
+        model = User #when it validates create new user
+        fields = ['username', 'email', 'password1', 'password2'] #fields shown on the form
 
 
 class UserUpdateForm(forms.ModelForm):

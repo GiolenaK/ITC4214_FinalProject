@@ -10,15 +10,15 @@ def register(request):
         if form.is_valid():
             form.save()
             username = form.cleaned_data.get('username')
-            messages.success(request, f'Your account has been created! You are now able to log in')
-            return redirect('login')
+            messages.success(request, f'Your account has been created! You are now able to log in') #confirmation message
+            return redirect('login') #redirect new user to login
     else:
         form = UserRegisterForm()
     return render(request, 'users/register.html', {'form': form})
 
 
 @login_required
-#decorators add functionality to an existing function, user must be logged in to view this page
+#user must be logged in to view this page
 #LOGIN_URL= 'login' on settings.py will redirect to login page when clicking profile if not logged in yet
 def profile(request):
     if request.method == 'POST':

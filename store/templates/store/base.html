@@ -3,12 +3,13 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <!-- Bootstrap CSS -->
+    <meta name="description"
+          content="This is a website to display items.">
+    {#    Bootstrap#}
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
-
+    {# My CSS #}
     <link rel="stylesheet" type="text/css" href="{% static 'store/main.css' %}">
 
     {% if title %}
@@ -18,6 +19,7 @@
     {% endif %}
 </head>
 <body>
+{#Header#}
 <header class="site-header">
     <nav class="navbar navbar-expand-md navbar-dark bg-steel fixed-top">
         <div class="container">
@@ -29,7 +31,6 @@
             <div class="collapse navbar-collapse" id="navbarToggle">
                 <div class="navbar-nav mr-auto">
                     <a class="nav-item nav-link" href="{% url 'store_home' %}">Home</a>
-                    <a class="nav-item nav-link" href="{% url 'store_about' %}">About</a>
                 </div>
                 <!-- Navbar Right Side -->
                 <div class="navbar-nav">
@@ -47,21 +48,54 @@
 </header>
 
 
+{#Container#}
 <main role="main" class="container">
-  <div class="row">
-    <div class="col-md-10">
-        {% if messages %}
-            {%  for message in messages %}
-            <div class="alert alert-{{  message.tags }}">
-                {{ message }}
-            </div>
-            {% endfor %}
-        {% endif %}
-      {% block content %}{% endblock %}
+    <div class="row">
+        <div class="col-md-10">
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-{{ message.tags }}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+            {% block content %}{% endblock %}
+        </div>
     </div>
+</main>
 
+<footer class="site-footer">
+    <div class="container-fluid">
+        <div class="footer">
+            <div class="row">
+                <div class="col-md-3">
+                    <h4>Location</h4>
+                    <p>Gravias 16, Agia Paraskevi<br>
+                        Greece, Athens</p>
+                </div>
+                <div class="col-md-3">
+                    <h4>Contact Us</h4>
+                    <p>Phone: 111-222-3333<br>
+                        Email: info@gioshop.com</p>
+                </div>
+                <div class="col-md-3">
+                    <h4>Quick Links</h4>
+                    <ul class="list-unstyled">
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#">About Us</a></li>
 
+                    </ul>
 
+                </div>
+
+                <div class="container-fluid text-center">
+                    <p>&copy; 2023 - Gio Shop. All rights reserved.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+</body>
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
@@ -73,5 +107,5 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
         integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
         crossorigin="anonymous"></script>
-</body>
+
 </html>

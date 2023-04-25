@@ -17,7 +17,7 @@
     <div class="container-fluid mt-5">
         <div class="row">
             <div class="col-lg-3 col-md-3 col-4">
-                <h3>Filter by Collection</h3>
+                <h3>Filter by Category</h3>
                 {#For loop to display all the available collections#}
                 {% for collection in collections %}
                     <div>
@@ -66,6 +66,8 @@
                             <div class="card h-100">
                                 {#For each item, display the image and the image title#}
                                 <img src="{{ product.image.url }}" alt="{{ product.title }}"
+                                     width="200"
+                                     height="220"
                                      class="card-img-top product-img">
                                 <div class="card-body card-content">
                                     <h4 class="card-title">{{ product.title }}</h4>
