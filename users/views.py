@@ -22,8 +22,8 @@ def register(request):
 #LOGIN_URL= 'login' on settings.py will redirect to login page when clicking profile if not logged in yet
 def profile(request):
     if request.method == 'POST':
-        u_form = UserUpdateForm(request.POST, instance=request.user)
-        p_form = ProfileUpdateForm(request.POST,
+        u_form = UserUpdateForm(request.POST, instance=request.user)  #user form
+        p_form = ProfileUpdateForm(request.POST,  #profile form
                                    request.FILES,
                                    instance=request.user.profile)
         if u_form.is_valid() and p_form.is_valid():

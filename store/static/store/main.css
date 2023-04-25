@@ -73,6 +73,7 @@ ul {
   width:1000px;
 }
 
+
 .search-container {
   width:230px;
   display: flex;
@@ -94,6 +95,7 @@ ul {
   align-self: center;
   padding-left: 0px;!important;
   padding-right: 0px;!important;
+  margin-bottom: 0;
 
 }
 
